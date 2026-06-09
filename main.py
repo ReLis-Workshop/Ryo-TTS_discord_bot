@@ -23,7 +23,7 @@ class MyBot(commands.Bot):
 
     async def setup_hook(self):
         # 1. Cog 로드
-        await self.load_extension('ryoshu')
+        await self.load_extension('ryo')
         
         # 2. 특정 길드에 즉시 동기화 (해커톤용 치트키)
         try:
