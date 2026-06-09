@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ryoshu-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ryoshu
+  template:
+    metadata:
+      labels:
+        app: ryoshu
+    spec:
+      containers:
+      - name: ryoshu
+        image: docker.io/library/ryoshu-bot:v1  # 빌드한 이미지 이름
+        imagePullPolicy: Never    # 로컬 이미지를 사용할 경우
+        resources:
+          limits:
+            cpu: "6"              # Ryzen 4500의 6코어 전체 점유
+            memory: "4Gi"
+          requests:
+            cpu: "2"
+            memory: "2Gi"
+        volumeMounts:
+        - mountPath: /dev/shm     # RAM 디스크 마운트 (연산 가속)
+          name: dshm
+      volumes:
+      - name: dshm
+        emptyDir:
+          medium: Memory
